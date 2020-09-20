@@ -1,102 +1,105 @@
 :root {
-    --orange: #f16642;
+  --orange: #f16642;
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    text-decoration: none;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
 }
 
 a {
-    color: inherit;
+  color: inherit;
 }
 
 .App {
-    min-height: 100vh;
-    background: #ede9e7;
+  min-height: 100vh;
+  display: flex;
 }
 
 main {
-    background: white;
+  background: white;
+  flex-grow: 1;
 }
 
 .home-hidden {
-    display: none;
+  display: none;
 }
 
 .nav-hidden {
-    display: none;
+  display: none;
 }
 
 .splash {
-    background-image: url('/images/splash-bkgd.jpg');
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    z-index: 5;
-    overflow: hidden;
+  background-image: url('/images/splash-bkgd.jpg');
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 1000;
+  overflow: hidden;
 }
 
 .splash-hidden {
-    display: none;
+  display: none;
 }
 
 /*Splash image cause bg doesnt work*/
 .splash-bg {
-    width: 100%;
-    min-height: 100vh;
-    position: fixed;
-    top: 0;
-    z-index: 6;
+  width: 100%;
+  min-height: 100vh;
+  position: fixed;
+  top: 0;
+  z-index: 6;
 }
 
 .splash-logo {
-    height: 30vh;
-    padding: 10vh;
-    position: relative;
-    z-index: 7;
-    animation: start 1.5s forwards ease-in-out;
+  height: 30vh;
+  padding: 10vh;
+  position: relative;
+  z-index: 7;
+  animation: start 1.5s forwards ease-in-out;
 }
 
 @keyframes start {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
 
 .MuiFormControl-root {
-    border: 1px solid gray;
-    margin: 40% 25%;
-    display: inline-flex;
-    padding: 10px;
-    z-index: 0;
-    position: relative;
-    min-width: 0;
-    flex-direction: column;
-    vertical-align: top;
-    border-radius: 5px;
+  border: 1px solid gray;
+  margin: 40% 25%;
+  display: inline-flex;
+  padding: 10px;
+  z-index: 0;
+  position: relative;
+  min-width: 0;
+  flex-direction: column;
+  vertical-align: top;
+  border-radius: 5px;
 }
 
 @media (min-width: 1000px) {
-    main {
-        width: 1000px;
-        margin: 0 auto;
-    }
+  main {
+    /* width: 1000px; */
+    margin: 0 auto;
+  }
 }

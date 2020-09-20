@@ -1,126 +1,77 @@
 import React, { useState, useEffect } from 'react';
-import Splash from './Splash';
+import ItemCard from './ItemCard';
+import HomeHeader from './HomeHeader';
 import { makeStyles } from '@material-ui/core/styles';
-import {
-    Card,
-    CardActionArea,
-    CardContent,
-    CardMedia,
-    Typography,
-    Box,
-    Input
-} from '@material-ui/core/';
+import { Box, Input, Grid } from '@material-ui/core/';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import SearchIcon from '@material-ui/icons/Search';
-import { pink } from '@material-ui/core/colors';
-import { Link } from 'react-router-dom';
+import { AppBar, Toolbar, Typography } from '@material-ui/core';
 
-const useStyles = makeStyles(theme => ({
-    search: {
-        padding: 5
-    },
-    card: {
-        margin: '10px 0'
-    },
-    root: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        height: 120
-    },
-    container: {
-        padding: '10px 10px 100px 10px',
-        background: '#EDE9E7',
-        minHeight: '100vh'
-    },
-    content: {
-        width: 200
-    },
-    cover: {
-        width: 151,
-        backgroundColor: pink
-    }
+const useStyles = makeStyles((theme) => ({
+  search: {
+    padding: 5,
+  },
+  container: {
+    paddingBottom: 100,
+    minHeight: '100vh',
+    padding: theme.spacing(3),
+  },
 }));
 
 const Home = ({ hideSplash, splash }) => {
-    const [vendors, setVendors] = useState([]);
-    const [filtered, setFiltered] = useState([]);
-    const classes = useStyles();
-    const [searchString, setSearchString] = useState('');
+  const [vendors, setVendors] = useState([]);
+  const [filtered, setFiltered] = useState([]);
+  const classes = useStyles();
+  const [searchString, setSearchString] = useState('');
 
-    useEffect(() => {
-        handleSubmit();
-    }, [searchString]);
+  useEffect(() => {
+    handleSubmit();
+  }, [searchString]);
 
-    const handleChange = e => {
-        setSearchString(e.target.value);
-    };
-    const handleSubmit = () => {
-        setFiltered(
-            vendors.filter(vendor =>
-                vendor.name.toLowerCase().match(searchString.toLowerCase())
-            )
-        );
-    };
-
-    useEffect(() => {
-        fetch(`${process.env.REACT_APP_SERVER_URL}/vendors/`)
-            .then(res => res.json())
-            .then(data => {
-                setVendors(data);
-                setFiltered(data);
-            })
-            .catch(err => console.error(err));
-    }, []);
-
-    return (
-        <>
-            {/*================SPLASH PAGE================*/}
-            <Splash hideSplash={hideSplash} splash={splash} />
-            <section id="home" className={splash ? 'home-hidden' : null}>
-                <Box className={classes.container}>
-                    <Input
-                        value={searchString}
-                        onChange={handleChange}
-                        className={classes.search}
-                        endAdornment={
-                            <InputAdornment position="end">
-                                <SearchIcon />
-                            </InputAdornment>
-                        }
-                        id="filled-basic"
-                    />
-                    {filtered.map(vendor => {
-                        return (
-                            <CardActionArea
-                                key={vendor.id}
-                                className={classes.card}
-                                component={Link}
-                                to={`/vendors/${vendor.id}`}
-                            >
-                                <Card className={classes.root}>
-                                    <CardContent className={classes.content}>
-                                        <Typography component="h5" variant="h5">
-                                            {vendor.name}
-                                        </Typography>
-                                        <Typography>
-                                            {vendor.street}, {vendor.city},{' '}
-                                            {vendor.state}
-                                        </Typography>
-                                    </CardContent>
-
-                                    <CardMedia
-                                        className={classes.cover}
-                                        image={vendor.image}
-                                        title="placeholder image for vendor"
-                                    />
-                                </Card>
-                            </CardActionArea>
-                        );
-                    })}
-                </Box>
-            </section>
-        </>
+  const handleChange = (e) => {
+    setSearchString(e.target.value);
+  };
+  const handleSubmit = () => {
+    setFiltered(
+      vendors.filter((vendor) =>
+        vendor.name.toLowerCase().match(searchString.toLowerCase())
+      )
     );
+  };
+
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_SERVER_URL}/vendors/`)
+      .then((res) => res.json())
+      .then((data) => {
+        setVendors(data);
+        setFiltered(data);
+      })
+      .catch((err) => console.error(err));
+  }, []);
+
+  return (
+    <section id="home" className={splash ? 'home-hidden' : null}>
+      <HomeHeader searchString={searchString} handleChange={handleChange} />
+      <Box className={classes.container}>
+        <Grid container spacing={4}>
+          {filtered.map((vendor) => {
+            return (
+              <Grid
+                item
+                xs={12}
+                md={6}
+                lg={4}
+                xl={3}
+                style={{ display: 'flex', flexDirection: 'column' }}
+              >
+                <ItemCard item={vendor} itemType="vendor" />
+              </Grid>
+            );
+          })}
+        </Grid>
+      </Box>
+    </section>
+  );
 };
 
 export default Home;
