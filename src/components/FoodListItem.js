@@ -5,7 +5,7 @@ import {
   CardActionArea,
   CardContent,
   CardMedia,
-  Typography
+  Typography,
 } from '@material-ui/core/';
 
 const FoodListItem = ({ listing, vendor }) => {
@@ -24,7 +24,7 @@ const FoodListItem = ({ listing, vendor }) => {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            {`${listing.name.substring(0, 11)}...`}
+            {listing.name}
           </Typography>
           <Typography
             gutterBottom
@@ -42,15 +42,15 @@ const FoodListItem = ({ listing, vendor }) => {
 
 const useStyles = makeStyles(() => ({
   img: {
-    width: '100%'
+    width: '100%',
   },
   cardStyles: {
-    margin: '2%'
+    margin: '2%',
   },
   media: {
     height: 150,
-    width: '100%'
-  }
+    width: '100%',
+  },
 }));
 
 export default FoodListItem;
